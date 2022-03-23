@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import FeedPage from './components/FeedPage';
+import FilterPage from './components/FilterPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <MDBContainer>
+        <MDBRow>
+          <MDBCol>
+            <h1>Feed</h1>
+          </MDBCol>
+        </MDBRow>
+        <FilterPage posts={this.state.posts}/>
+        <FeedPage posts={this.state.posts} />
+      </MDBContainer>
+    );
+  }
+
+  state = {
+    posts: []
+  }
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({ posts: data })
+      })
+      .catch(console.log)
+  }
 }
 
 export default App;
