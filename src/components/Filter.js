@@ -1,26 +1,43 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import { Row, Col, Form } from 'react-bootstrap';
-import _ from 'lodash';
+import { Row, Col, Form, Button } from 'react-bootstrap';
+// import _ from 'lodash';
 
-const FiltePage = ({ posts }) => {
-  const options = _.chain(posts).map('userId').uniq().value();
+const Filter = (props) => {
+  console.log(props);
+  const [userId, setUserId] = useState(props.selectOptions[0]);
+  const [sort, setSort] = useState('asc');
 
-  const [userId, setUserId] = useState(options[0]);
-  console.log('FiltePage', userId);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setUserId(value);
+    props.setFilter({ userId: value, sort: sort });
+  };
+
+  const handleClick = () => {
+    if (sort === 'asc') {
+      setSort('desc');
+    } else if (sort === 'desc') {
+      setSort('asc');
+    }
+    props.setFilter({ userId: userId, sort: sort });
+  };
 
   return (
-    <Row className='row-cols-2'>
+    <Row>
       <form>
         <Col>
-          <Form.Select size="sm" onChange={e => setUserId(e.target.value)} value={userId}>
-            {options.map(o => (
+          Filter ID:
+          <Form.Select size="sm" onChange={handleChange} value={userId}>
+            <option key='' value=''></option>
+            {props.selectOptions.map(o => (
               <option key={o} value={o}>{o}</option>
             ))}
           </Form.Select>
         </Col>
+        <Col> <Button onClick={handleClick}>Sort <i className="fas fa-sort"></i></Button></Col>
       </form>
     </Row>
   );
 };
-export default FiltePage;
+export default Filter;
