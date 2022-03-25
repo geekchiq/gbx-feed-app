@@ -1,17 +1,11 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Row, Col, Button, FormControl, InputGroup } from 'react-bootstrap';
-// import _ from 'lodash';
 
 const Filter = (props) => {
   const [value, setValue] = useState('');
-
-  console.log(props);
-  const handleKeyPress = e => {
+  const handleKeyUp = e => {
     setValue(e.target.value);
-    if (e.key === 'Enter') {
-      handleClick();
-    }
+    handleClick();
   };
 
   const handleClick = () => {
@@ -26,7 +20,7 @@ const Filter = (props) => {
           <FormControl
             placeholder="Search Keyword"
             onChange={e => { setValue(e.target.value); }}
-            onKeyPress={handleKeyPress}/>
+            onKeyUp={handleKeyUp}/>
           <Button variant="outline-secondary" id="button-addon2" onClick={handleClick}>
             <i className="fas fa-search" />
           </Button>
