@@ -35,9 +35,9 @@ const Filter = (props) => {
             <Dropdown.Item key={o} eventKey={o}>{o}</Dropdown.Item>
           ))}
           </DropdownButton>
-          <FormControl className="filter-text" value={userId} readOnly/>
-          <Button onClick={handleClick} value="az" className="col-1"><i className="fas fa-arrow-down-a-z" /></Button>
-          <Button onClick={handleClick} value="za" className="col-1"><i className="fas fa-arrow-up-a-z" /></Button>
+          <FormControl className="filter-text mr-auto" value={userId} readOnly/>
+          <Button onClick={handleClick} value="az" className="col-1 btn-sort"><i className="fas fa-arrow-down-a-z" /></Button>
+          <Button onClick={handleClick} value="za" className="col-1 btn-sort"><i className="fas fa-arrow-up-a-z" /></Button>
         </InputGroup>
       </Col>
     </Row>

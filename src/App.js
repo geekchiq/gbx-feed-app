@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeProvider, Container } from 'react-bootstrap';
 import FeedPage from './pages/FeedPage';
+import './App.css';
 
 function App () {
   return (

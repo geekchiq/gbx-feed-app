@@ -88,7 +88,7 @@ function FeedPage () {
   console.log(`filter ${filter} sort ${sort}`);
   return (
     <Card>
-      <Card.Title>Post Feed</Card.Title>
+      <Card.Header className='page-title' as="h4">My Feed</Card.Header>
       <Card.Body>
         <Row className='row-cols-1'>
           <Col>
