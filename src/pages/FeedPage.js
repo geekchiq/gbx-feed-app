@@ -9,7 +9,7 @@ function FeedPage () {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [filter, setFilter] = useState('');
-  const [sort, setSort] = useState('');
+  const [sort, setSort] = useState('za');
   const [keyword, setKeyword] = useState('');
   const baseurl = 'https://jsonplaceholder.typicode.com/posts';
 
@@ -21,15 +21,15 @@ function FeedPage () {
     console.log('Get Init Data');
   }, []);
 
-  useEffect(() => {
-    callAPI();
+  useEffect(async () => {
+    await callAPI();
   }, [filter]);
 
   useEffect(() => {
     console.log('Keyword', keyword);
     console.log('filterData', filterData);
     if (keyword !== '') {
-      const tempData = filterData.filter(item => `${item.title} ${item.body}`.includes(keyword));
+      const tempData = filterData.filter(item => `${item.title.toLowerCase()} ${item.body.toLowerCase()}`.includes(keyword.toLowerCase()));
       setFilterData(tempData);
       console.log('Use Effect 3', tempData);
     } else {
@@ -37,8 +37,8 @@ function FeedPage () {
     }
   }, [keyword]);
 
-  useEffect(() => {
-    handleSort();
+  useEffect(async () => {
+    await handleSort();
     console.log('Use Effect 4', filterData);
   }, [sort]);
 

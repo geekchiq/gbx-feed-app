@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Row, Col, Card } from 'react-bootstrap';
 import _ from 'lodash';
