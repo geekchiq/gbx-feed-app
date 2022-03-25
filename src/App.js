@@ -7,7 +7,7 @@ function App () {
     <ThemeProvider
       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
     >
-      <Container>
+      <Container fluid>
         <FeedPage/>
       </Container>
     </ThemeProvider>

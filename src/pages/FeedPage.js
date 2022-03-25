@@ -1,51 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import Posts from '../components/Posts';
 import Filter from '../components/Filter';
+import Search from '../components/Search';
 import _ from 'lodash';
 
 function FeedPage () {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
-  const [filter, setFilter] = useState({ userId: '', sort: 'asc' });
+  const [filter, setFilter] = useState('');
+  const [sort, setSort] = useState('');
+  const [keyword, setKeyword] = useState('');
   const baseurl = 'https://jsonplaceholder.typicode.com/posts';
-  console.log('filter', filter);
+
   useEffect(() => {
-    const endpoint = !_.isEmpty(filter.userId) ? baseurl + '?userId=' + filter.userId : baseurl;
-    console.log('endpoint', endpoint);
     fetch(baseurl)
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.log(error));
+    console.log('Get Init Data');
+  }, []);
 
+  useEffect(() => {
+    callAPI();
+  }, [filter]);
+
+  useEffect(() => {
+    console.log('Keyword', keyword);
+    console.log('filterData', filterData);
+    if (keyword !== '') {
+      const tempData = filterData.filter(item => `${item.title} ${item.body}`.includes(keyword));
+      setFilterData(tempData);
+      console.log('Use Effect 3', tempData);
+    } else {
+      callAPI();
+    }
+  }, [keyword]);
+
+  useEffect(() => {
+    handleSort();
+    console.log('Use Effect 4', filterData);
+  }, [sort]);
+
+  const options = _.chain(data).map('userId').uniq().value();
+
+  function callAPI () {
+    const endpoint = !_.isEmpty(filter) ? baseurl + '?userId=' + filter : baseurl;
+    console.log('endpoint', endpoint);
     fetch(endpoint)
       .then((response) => response.json())
       .then((json) => setFilterData(json))
       .catch((error) => console.log(error));
-    console.log('filterData', filterData);
-  }, [filter.userId]);
-
-  useEffect(() => {
-    handleSort();
-  }, [filterData, filter.sort]);
-
-  const options = _.chain(data).map('userId').uniq().value();
+    console.log('Use Effect 2', filterData);
+  }
 
   function handleSort () {
-    if (filter.sort === 'asc') {
+    if (sort === 'az') {
       const tempData = filterData.sort((a, b) => {
         const fa = a.title.toLowerCase();
         const fb = b.title.toLowerCase();
 
         if (fa < fb) {
-          return -1;
+          return 1;
         }
         if (fa > fb) {
-          return 1;
+          return -1;
         }
         return 0;
       });
-      console.log('tempData', tempData);
       setFilterData(tempData);
     } else {
       const tempData = filterData.sort((a, b) => {
@@ -53,24 +75,30 @@ function FeedPage () {
         const fb = b.title.toLowerCase();
 
         if (fa < fb) {
-          return 1;
+          return -1;
         }
         if (fa > fb) {
-          return -1;
+          return 1;
         }
         return 0;
       });
-      console.log('tempData', tempData);
       setFilterData(tempData);
     }
   }
+  console.log(`filter ${filter} sort ${sort}`);
   return (
-    <Row className='row-cols-1'>
-      <Col>
-        <Filter posts={data} selectOptions={options} setFilter={setFilter}/>
-        <Posts posts={filterData} />
-      </Col>
-    </Row>
+    <Card>
+      <Card.Title>Post Feed</Card.Title>
+      <Card.Body>
+        <Row className='row-cols-1'>
+          <Col>
+            <Filter posts={data} selectOptions={options} setFilter={setFilter} setSort={setSort} />
+            <Search setKeyword={setKeyword}/>
+            <Posts posts={filterData} />
+          </Col>
+        </Row>
+      </Card.Body>
+    </Card>
   );
 }
 
