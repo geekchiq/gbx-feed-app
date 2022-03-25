@@ -36,3 +36,45 @@
     transform: rotate(360deg);
   }
 }
+
+.page-title{
+  text-align: center;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: #6e5645 !important;
+  border-color: #32271f !important;
+  background-color: #f0ebe8 !important; 
+}
+
+.filter-text{
+  background-color: #f0ebe8 !important; 
+}
+
+.form-control {
+ border-color: #32271f !important;
+}
+
+.card {
+ border-color: #32271f !important;
+ color: #32271f !important;
+}
+
+.card-title {
+ font-family: Roboto, sans-serif;
+ font-weight: bolder;
+ text-align: left;
+}
+.card-body {
+  text-align: justify;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.btn-sort{
+  color: #fff;
+  background-color: #6e5645 !important;
+  border-color: #32271f !important; 
+}
+
+.btn-outline-secondary {
+  color: #6c757d;
+  border-color: #32271f !important; 
+}

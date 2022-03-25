@@ -1,34 +1,18 @@
-import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
-import FeedPage from './components/FeedPage';
-import FilterPage from './components/FilterPage';
+import React from 'react';
+import { ThemeProvider, Container } from 'react-bootstrap';
+import FeedPage from './pages/FeedPage';
+import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <MDBContainer>
-        <MDBRow>
-          <MDBCol>
-            <h1>Feed</h1>
-          </MDBCol>
-        </MDBRow>
-        <FilterPage posts={this.state.posts}/>
-        <FeedPage posts={this.state.posts} />
-      </MDBContainer>
-    );
-  }
-
-  state = {
-    posts: []
-  }
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
-      .then((data) => {
-        this.setState({ posts: data })
-      })
-      .catch(console.log)
-  }
+function App () {
+  return (
+    <ThemeProvider
+      breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+    >
+      <Container fluid>
+        <FeedPage/>
+      </Container>
+    </ThemeProvider>
+  );
 }
 
 export default App;
